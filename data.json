@@ -1,0 +1,32 @@
+{
+    "site_title": "Yi便Yi谢",
+    "site_description": "分享恩典 · 传递盼望",
+    "text_sections": [
+        {
+            "title": "今日心语",
+            "content": "你们要将一切的忧虑卸给神，因为他顾念你们。\n（彼得前书 5:7）"
+        },
+        {
+            "title": "本周默想",
+            "content": "真正的平安不是没有风暴，而是风暴中有主同行。把我们的重担交托，他会赐下出人意外的平安。"
+        }
+    ],
+    "gallery": [
+        {
+            "file": "example1.jpg",
+            "caption": "晨光中的十字架"
+        },
+        {
+            "file": "example2.jpg",
+            "caption": "团契生活"
+        }
+    ],
+    "audios": [
+        {
+            "title": "信心与依靠",
+            "speaker": "讲员姓名",
+            "date": "2025-05-08",
+            "file": "sermon1.mp3"
+        }
+    ]
+}
