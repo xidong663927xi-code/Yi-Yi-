@@ -1,15 +1,338 @@
-/* 将这一段完整复制到你的 index.html 的 <style> 标签里 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body { background: #121212; color: #e0e0e0; }
-.container { background: #1e1e1e; box-shadow: none; }
-h1 { color: #9bcd8c; }
-.card, .audio-item { background: #2a2a2a; border-color: #333; }
-.card h3 { color: #a5d6a5; }
-footer { color: #6c6c6c; }
-/* 其他元素同主题一 */
-}
-/* 模态框等其他样式保持默认即可 */
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>牧羊网 · 分享站</title>
+    <style>
+        /* ========== 清新阅读风 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5efe7;
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            padding: 1.5rem;
+            line-height: 1.5;
+            color: #2c2a29;
+        }
+
+        .container {
+            max-width: 880px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        /* 头部 */
+        header {
+            text-align: center;
+            border-bottom: 1px solid #e6dfd7;
+            padding-bottom: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c5e2a;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.3rem;
+        }
+
+        .site-desc {
+            color: #8f7a66;
+            font-size: 0.9rem;
+        }
+
+        /* 文字卡片 */
+        .text-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: #fefaf5;
+            border-radius: 1.2rem;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #ede3d9;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c5e2a;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #9bc48a;
+        }
+
+        .card p {
+            color: #4b3f35;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        /* 区块标题 */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin: 1.5rem 0 1rem 0;
+            color: #2c5e2a;
+            padding-bottom: 0.2rem;
+            border-bottom: 2px solid #e0d6ce;
+            display: inline-block;
+        }
+
+        /* 图片网格 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .image-item {
+            background: #fff;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #ede3d9;
+        }
+
+        .image-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            padding: 0.6rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6b5a4a;
+            background: white;
+        }
+
+        /* 录音列表 */
+        .audio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .audio-item {
+            background: #fefaf5;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            border: 1px solid #ede3d9;
+        }
+
+        .audio-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #2c5e2a;
+            margin-bottom: 0.1rem;
+        }
+
+        .audio-meta {
+            font-size: 0.75rem;
+            color: #9f8b78;
+            margin-bottom: 0.4rem;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 0.4rem;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e6dfd7;
+            color: #b3a18e;
+            font-size: 0.75rem;
+        }
+
+        /* 图片模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            font-size: 42px;
+            font-weight: 300;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: monospace;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 0.8rem;
+            }
+            .container {
+                padding: 1.2rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .card h3 {
+                font-size: 1.2rem;
+            }
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div style="text-align: center; padding: 2rem; color: #9c8a78;">✨ 加载中...</div>
+</div>
+
+<div id="imageModal" class="modal">
+    <span class="modal-close">&times;</span>
+    <img id="modalImg" src="" alt="放大图片">
+</div>
+
+<script>
+    async function loadData() {
+        try {
+            const response = await fetch('./data.json?t=' + Date.now());
+            if (!response.ok) throw new Error('data.json 无法加载');
+            const data = await response.json();
+
+            // 头部
+            let html = `
+                <header>
+                    <h1>${escapeHtml(data.site_title || '牧羊网')}</h1>
+                    <div class="site-desc">${escapeHtml(data.site_description || '分享恩典 · 传递盼望')}</div>
+                </header>
+            `;
+
+            // 文字区
+            if (data.text_sections && data.text_sections.length) {
+                html += `<div class="text-sections">`;
+                for (let sec of data.text_sections) {
+                    html += `
+                        <div class="card">
+                            <h3>${escapeHtml(sec.title)}</h3>
+                            <p>${escapeHtml(sec.content).replace(/\n/g, '<br>')}</p>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+
+            // 图片区
+            if (data.gallery && data.gallery.length) {
+                html += `<div class="section-title">📷 图片记忆</div>`;
+                html += `<div class="image-grid">`;
+                for (let img of data.gallery) {
+                    html += `
+                        <div class="image-item" onclick="openModal('images/${img.file}')">
+                            <img src="images/${img.file}" alt="${escapeHtml(img.caption)}" onerror="this.src='https://placehold.co/600x450?text=未加载'">
+                            <div class="image-caption">${escapeHtml(img.caption)}</div>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+
+            // 录音区
+            if (data.audios && data.audios.length) {
+                html += `<div class="section-title">🎙️ 讲道分享</div>`;
+                html += `<div class="audio-list">`;
+                for (let aud of data.audios) {
+                    html += `
+                        <div class="audio-item">
+                            <div class="audio-title">${escapeHtml(aud.title)}</div>
+                            <div class="audio-meta">${escapeHtml(aud.speaker || '')} ${aud.date ? '· ' + escapeHtml(aud.date) : ''}</div>
+                            <audio controls preload="metadata" src="audios/${aud.file}"></audio>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+
+            html += `<footer>✝️ 愿你平安 · 心中常有亮光</footer>`;
+            document.getElementById('app').innerHTML = html;
+        } catch (err) {
+            document.getElementById('app').innerHTML = `
+                <div style="text-align:center; padding:2rem; color:#9e6b5e;">
+                    无法加载内容，请检查 data.json 文件是否存在。<br>
+                    <span style="font-size:0.8rem;">${err.message}</span>
+                </div>
+            `;
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    window.openModal = function(src) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modal.style.display = 'flex';
+        modalImg.src = src;
+    };
+    document.querySelector('.modal-close').addEventListener('click', () => {
+        document.getElementById('imageModal').style.display = 'none';
+    });
+    window.onclick = function(e) {
+        const modal = document.getElementById('imageModal');
+        if (e.target === modal) modal.style.display = 'none';
+    };
+
+    loadData();
+</script>
+</body>
+</html>
